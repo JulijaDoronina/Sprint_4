@@ -70,8 +70,11 @@ public class ArendaPage {
         By navigationButton = monthDiff > 0 ? nextMonth : prevMonth;
 
         for (int i = 0; i < Math.abs(monthDiff); i++) {
-            wait.until(ExpectedConditions.elementToBeClickable(navigationButton)).click();
-            try { Thread.sleep(300); } catch (InterruptedException e) { e.printStackTrace(); }
+            WebElement navButton = wait.until(ExpectedConditions.elementToBeClickable(navigationButton));
+            navButton.click();
+            // Ждем обновления календаря через ожидание изменения текущего месяца
+            wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(currentDate, currentDateText)));
+            currentDateText = driver.findElement(currentDate).getText();
         }
 
         String dayLocator = String.format(

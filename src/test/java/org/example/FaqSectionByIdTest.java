@@ -64,12 +64,8 @@ public class FaqSectionByIdTest {
 
     @After
     public void tearDown() {
-        try {
-            Thread.sleep(1000L);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        if (driver != null) {
+            driver.quit();
         }
-        // Закрытие браузера
-        driver.quit();
     }
 }
