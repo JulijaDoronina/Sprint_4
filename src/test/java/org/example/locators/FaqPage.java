@@ -40,16 +40,14 @@ public class FaqPage {
             By.id("accordion__panel-7")
     );
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
 
-    public FaqPage(WebDriver driver, WebDriverWait wait) {
+    public FaqPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
     }
 
     public void clickCookieButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(cookieButton)).click();
+        driver.findElement(cookieButton).click();
     }
 
     public void scrollToFaqSection() {
@@ -61,8 +59,7 @@ public class FaqPage {
         WebElement question = driver.findElement(questionIds.get(questionIndex));
         question.click();
 
-        WebElement answer = wait.until(ExpectedConditions.visibilityOfElementLocated(
-                answerIds.get(questionIndex)));
+        WebElement answer = driver.findElement(answerIds.get(questionIndex));
 
         String actualAnswer = answer.getText();
         if (!actualAnswer.equals(expectedAnswer)) {

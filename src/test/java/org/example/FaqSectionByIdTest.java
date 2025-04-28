@@ -9,7 +9,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -18,7 +17,6 @@ import java.util.concurrent.TimeUnit;
 @RunWith(Parameterized.class)
 public class FaqSectionByIdTest {
     private WebDriver driver;
-    private WebDriverWait wait;
     private MainPage mainPage;
     private FaqPage faqPage;
 
@@ -49,11 +47,10 @@ public class FaqSectionByIdTest {
         driver.get(MainPage.URL);
 
         // Ожидание загрузки страницы
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-        wait = new WebDriverWait(driver, 5L);
+        driver.manage().timeouts().implicitlyWait(5L, TimeUnit.SECONDS);
 
-        mainPage = new MainPage(driver, wait);
-        faqPage = new FaqPage(driver, wait);
+        mainPage = new MainPage(driver);
+        faqPage = new FaqPage(driver);
 
         // Подготовка тестовой среды
         mainPage.clickCookieButton();

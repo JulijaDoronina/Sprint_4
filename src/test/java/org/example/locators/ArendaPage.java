@@ -41,8 +41,8 @@ public class ArendaPage {
     // Кнопка "Заказать"
     public By order =By.xpath("//button[contains(text(), 'Заказать') and contains(@class, 'Button_Middle__1CSJM')]");
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
+    private final WebDriverWait wait;
 
     public ArendaPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
@@ -70,8 +70,7 @@ public class ArendaPage {
         By navigationButton = monthDiff > 0 ? nextMonth : prevMonth;
 
         for (int i = 0; i < Math.abs(monthDiff); i++) {
-            WebElement navButton = wait.until(ExpectedConditions.elementToBeClickable(navigationButton));
-            navButton.click();
+            driver.findElement(navigationButton).click();
             // Ждем обновления календаря через ожидание изменения текущего месяца
             wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(currentDate, currentDateText)));
             currentDateText = driver.findElement(currentDate).getText();
@@ -80,7 +79,7 @@ public class ArendaPage {
         String dayLocator = String.format(
                 "//div[contains(@class, 'react-datepicker__day') and text()='%d' " +
                         "and not(contains(@class, 'react-datepicker__day--outside-month'))]", day);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(dayLocator))).click();
+        driver.findElement(By.xpath(dayLocator)).click();
     }
 
     private int parseMonth(String monthName) {
@@ -96,16 +95,16 @@ public class ArendaPage {
 
     private void selectRentalPeriod(By rentalPeriodLocator) {
         driver.findElement(rentalPeriod).click();
-        wait.until(ExpectedConditions.elementToBeClickable(rentalPeriodLocator)).click();
+        driver.findElement(rentalPeriodLocator).click();
     }
 
     private void selectColor(boolean useCheckBox1, boolean useCheckBox2) {
         if (useCheckBox1) {
-            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(checkBox1));
+            WebElement checkbox = driver.findElement(checkBox1);
             if (!checkbox.isSelected()) checkbox.click();
         }
         if (useCheckBox2) {
-            WebElement checkbox = wait.until(ExpectedConditions.elementToBeClickable(checkBox2));
+            WebElement checkbox = driver.findElement(checkBox2);
             if (!checkbox.isSelected()) checkbox.click();
         }
     }
@@ -115,6 +114,6 @@ public class ArendaPage {
     }
 
     public void clickOrderButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(order)).click();
+        driver.findElement(order).click();
     }
 }

@@ -17,16 +17,14 @@ public class MainPage {
     // Нижняя кнопка "Заказать"
     public By downOrderButton = By.className("Button_Middle__1CSJM");
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
 
-    public MainPage(WebDriver driver, WebDriverWait wait) {
+    public MainPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
     }
 
     public void clickCookieButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(cookieButton)).click();
+        driver.findElement(cookieButton).click();
     }
 
     public void clickTopOrderButton() {

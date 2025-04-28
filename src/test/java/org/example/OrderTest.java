@@ -113,15 +113,15 @@ public class OrderTest {
         driver = new ChromeDriver();
         driver.get(MainPage.URL);
         // Ожидание загрузки страницы
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5L, TimeUnit.SECONDS);
 
         wait = new WebDriverWait(driver, 5L);
 
-        mainPage = new MainPage(driver, wait);
+        mainPage = new MainPage(driver);
         arendaPage = new ArendaPage(driver, wait);
-        decoratedPage = new DecoratedPage(driver, wait);
-        orderConfirmationPage = new OrderConfirmationPage(driver, wait);
-        userPage = new UserPage(driver, wait);
+        decoratedPage = new DecoratedPage(driver);
+        orderConfirmationPage = new OrderConfirmationPage(driver);
+        userPage = new UserPage(driver);
 
     }
 

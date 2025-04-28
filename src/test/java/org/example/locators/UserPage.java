@@ -31,12 +31,10 @@ public class UserPage {
     // Кнопка "Далее"
     public By nextButton = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final WebDriver driver;
 
-    public UserPage(WebDriver driver, WebDriverWait wait) {
+    public UserPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = wait;
     }
 
     public void fillUserData(String firstName, String lastName, String address, String phone, By stationName) {
@@ -46,11 +44,10 @@ public class UserPage {
         driver.findElement(this.phone).sendKeys(phone);
 
         driver.findElement(station).click();
-        WebElement stationElement = wait.until(ExpectedConditions.elementToBeClickable(stationName));
-        stationElement.click();
+        driver.findElement(stationName).click();
     }
 
     public void clickNextButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();
+        driver.findElement(nextButton).click();
     }
 }
