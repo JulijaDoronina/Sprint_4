@@ -1,11 +1,12 @@
 package org.example.locators;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.Arrays;
-import java.util.List;
-
-public class UserPageObjects {
+public class UserPage {
 
     // Страница "Для кого самокат"
     // Поле "Имя"
@@ -30,4 +31,26 @@ public class UserPageObjects {
     // Кнопка "Далее"
     public By nextButton = By.cssSelector(".Button_Button__ra12g.Button_Middle__1CSJM");
 
+    private WebDriver driver;
+    private WebDriverWait wait;
+
+    public UserPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, 5L);
+    }
+
+    public void fillUserData(String firstName, String lastName, String address, String phone, By stationName) {
+        driver.findElement(this.firstName).sendKeys(firstName);
+        driver.findElement(this.lastName).sendKeys(lastName);
+        driver.findElement(this.address).sendKeys(address);
+        driver.findElement(this.phone).sendKeys(phone);
+
+        driver.findElement(station).click();
+        WebElement stationElement = wait.until(ExpectedConditions.elementToBeClickable(stationName));
+        stationElement.click();
+    }
+
+    public void clickNextButton() {
+        wait.until(ExpectedConditions.elementToBeClickable(nextButton)).click();
+    }
 }
