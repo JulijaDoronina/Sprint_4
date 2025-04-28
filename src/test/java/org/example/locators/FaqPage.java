@@ -57,10 +57,18 @@ public class FaqPage {
         ((org.openqa.selenium.JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", faqSection);
     }
 
-    public String getAnswerText(int questionIndex) {
+    public void checkQuestionAnswer(int questionIndex, String expectedAnswer) {
         WebElement question = driver.findElement(questionIds.get(questionIndex));
         question.click();
-        WebElement answer = wait.until(ExpectedConditions.visibilityOfElementLocated(answerIds.get(questionIndex)));
-        return answer.getText();
+
+        WebElement answer = wait.until(ExpectedConditions.visibilityOfElementLocated(
+                answerIds.get(questionIndex)));
+
+        String actualAnswer = answer.getText();
+        if (!actualAnswer.equals(expectedAnswer)) {
+            throw new AssertionError("Для вопроса #" + questionIndex +
+                    " ожидался ответ '" + expectedAnswer +
+                    "', но получен '" + actualAnswer + "'");
+        }
     }
 }
