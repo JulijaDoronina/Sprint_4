@@ -2,6 +2,7 @@ package org.example.locators;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -13,7 +14,7 @@ public class MainPage {
     // Верхняя кнопка "Заказать"
     public By topOrderButton = By.className("Button_Button__ra12g");
     // Нижняя кнопка "Заказать"
-    public By downOrderButton = By.className("Button_Button__ra12g");
+    public By downOrderButton = By.className("Button_Middle__1CSJM");
 
     private WebDriver driver;
     private WebDriverWait wait;
@@ -32,6 +33,8 @@ public class MainPage {
     }
 
     public void clickDownOrderButton() {
-        driver.findElement(downOrderButton).click();
+        WebElement btn = driver.findElement(downOrderButton);
+        ((org.openqa.selenium.JavascriptExecutor)driver).executeScript("arguments[0].scrollIntoView();", btn);
+        btn.click();
     }
 }
