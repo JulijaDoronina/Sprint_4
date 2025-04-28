@@ -25,13 +25,13 @@ public class ArendaPage {
     public By rentalPeriod = By.className("Dropdown-placeholder");
         //Локаторы расписаны для 4х сроков аренды, для остальных создаются аналогично
         // Срок "трое суток"
-        public By rental3Days = By.xpath("//div[contains(text(), 'трое суток')]");
+        public static final By RENTAL_3_DAYS = By.xpath("//div[contains(text(), 'трое суток')]");
         // Срок "четверо суток"
-        public By rental4Days = By.xpath("//div[contains(text(), 'четверо суток')]");
+        public static final By RENTAL_4_DAYS = By.xpath("//div[contains(text(), 'четверо суток')]");
         // Срок "пятеро суток"
-        public By rental5Days = By.xpath("//div[contains(text(), 'пятеро суток')]");
+        public static final By RENTAL_5_DAYS = By.xpath("//div[contains(text(), 'пятеро суток')]");
         // Срок "шестеро суток"
-        public By rental6Days = By.xpath("//div[contains(text(), 'шестеро суток')]");
+        public static final By RENTAL_6_DAYS = By.xpath("//div[contains(text(), 'шестеро суток')]");
     // Поле "Цвет самоката"
     public By color = By.className("Order_Title__3EKne");
         // Чекбоксы выбора цвета самоката

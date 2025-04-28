@@ -19,13 +19,13 @@ public class UserPage {
     public By station = By.xpath("//input[@placeholder='* Станция метро']");
         // Локаторы расписаны для 4х станций метро, для остальных станций создаются аналогично
         // Локатор для станции метро "Каширская"
-        public By kashirskayaStation = By.xpath("//div[contains(text(), 'Каширская')]");
+        public static final By KASHIRSKAYA_STATION = By.xpath("//div[contains(text(), 'Каширская')]");
         // Локатор для станции метро "Лубянка"
-        public By lubyankaStation = By.xpath("//div[contains(text(), 'Лубянка')]");
+        public static final By LUBYANKA_STATION = By.xpath("//div[contains(text(), 'Лубянка')]");
         // Локатор для станции метро "Спортивная"
-        public By sportivnayaStation = By.xpath("//div[contains(text(), 'Спортивная')]");
+        public static final By SPORTIVNAYA_STATION = By.xpath("//div[contains(text(), 'Спортивная')]");
         // Локатор для станции метро "Сокол"
-        public By socolStation = By.xpath("//div[contains(text(), 'Сокол')]");
+        public static final By SOCOL_STATION = By.xpath("//div[contains(text(), 'Сокол')]");
     // Поле "Телефон:на него позвонит курьер"
     public By phone = By.xpath("//input[@placeholder='* Телефон: на него позвонит курьер']");
     // Кнопка "Далее"

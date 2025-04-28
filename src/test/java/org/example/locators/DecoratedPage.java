@@ -14,7 +14,7 @@ public class DecoratedPage {
 
     public DecoratedPage(WebDriver driver) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = new WebDriverWait(driver, 2L);
     }
 
     public void clickViewStatusButton() {
