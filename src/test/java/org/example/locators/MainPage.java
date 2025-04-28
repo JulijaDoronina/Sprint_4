@@ -20,9 +20,9 @@ public class MainPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public MainPage(WebDriver driver) {
+    public MainPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = wait;
     }
 
     public void clickCookieButton() {

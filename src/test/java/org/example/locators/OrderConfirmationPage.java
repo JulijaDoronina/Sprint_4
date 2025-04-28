@@ -12,9 +12,9 @@ public class OrderConfirmationPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public OrderConfirmationPage(WebDriver driver) {
+    public OrderConfirmationPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = wait;
     }
 
     public void clickYesButton() {

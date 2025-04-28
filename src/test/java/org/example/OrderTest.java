@@ -9,6 +9,7 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 @RunWith(Parameterized.class)
 public class OrderTest {
     private WebDriver driver;
+    private WebDriverWait wait;
     private MainPage mainPage;
     private ArendaPage arendaPage;
     private DecoratedPage decoratedPage;
@@ -113,11 +115,14 @@ public class OrderTest {
         // Ожидание загрузки страницы
         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
 
-        mainPage = new MainPage(driver);
-        arendaPage = new ArendaPage(driver);
-        decoratedPage = new DecoratedPage(driver);
-        orderConfirmationPage = new OrderConfirmationPage(driver);
-        userPage = new UserPage(driver);
+        wait = new WebDriverWait(driver, 5L);
+
+        mainPage = new MainPage(driver, wait);
+        arendaPage = new ArendaPage(driver, wait);
+        decoratedPage = new DecoratedPage(driver, wait);
+        orderConfirmationPage = new OrderConfirmationPage(driver, wait);
+        userPage = new UserPage(driver, wait);
+
     }
 
     @Test

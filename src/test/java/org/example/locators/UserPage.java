@@ -34,9 +34,9 @@ public class UserPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public UserPage(WebDriver driver) {
+    public UserPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = wait;
     }
 
     public void fillUserData(String firstName, String lastName, String address, String phone, By stationName) {

@@ -44,9 +44,9 @@ public class ArendaPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public ArendaPage(WebDriver driver) {
+    public ArendaPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = wait;
     }
 
     public void fillRentalData(int year, int month, int day, By rentalPeriodLocator,

@@ -43,9 +43,9 @@ public class FaqPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public FaqPage(WebDriver driver) {
+    public FaqPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 5L);
+        this.wait = wait;
     }
 
     public void clickCookieButton() {

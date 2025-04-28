@@ -12,9 +12,9 @@ public class DecoratedPage {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public DecoratedPage(WebDriver driver) {
+    public DecoratedPage(WebDriver driver, WebDriverWait wait) {
         this.driver = driver;
-        this.wait = new WebDriverWait(driver, 2L);
+        this.wait = wait;
     }
 
     public void clickViewStatusButton() {
