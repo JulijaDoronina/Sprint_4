@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class MainPage {
+    public static final String URL = "https://qa-scooter.praktikum-services.ru/";
     // Главная страница кнопки "Заказать"
     //Локатор кнопки, закрытия куки в модальном окне, "да все привыкли"
     public By cookieButton = By.className("App_CookieButton__3cvqF");

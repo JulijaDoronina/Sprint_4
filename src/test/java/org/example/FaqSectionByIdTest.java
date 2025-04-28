@@ -44,7 +44,7 @@ public class FaqSectionByIdTest {
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\projects\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver();
-        driver.get("https://qa-scooter.praktikum-services.ru/");
+        driver.get(MainPage.URL);
 
         // Ожидание загрузки страницы
         driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
