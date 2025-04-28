@@ -1,5 +1,6 @@
 package org.example;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.example.locators.*;
 import org.junit.After;
 import org.junit.Before;
@@ -9,11 +10,15 @@ import org.junit.runners.Parameterized;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertTrue;
 
 @RunWith(Parameterized.class)
 public class OrderTest {
@@ -109,20 +114,22 @@ public class OrderTest {
     @Before
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "C:\\projects\\chromedriver-win64\\chromedriver.exe");
-
         driver = new ChromeDriver();
+
+//        WebDriverManager.firefoxdriver().setup();
+//        driver = new FirefoxDriver();
+
         driver.get(MainPage.URL);
         // Ожидание загрузки страницы
         driver.manage().timeouts().implicitlyWait(5L, TimeUnit.SECONDS);
 
-        wait = new WebDriverWait(driver, 5L);
+        wait = new WebDriverWait(driver, Duration.ofSeconds(5L));
 
         mainPage = new MainPage(driver);
         arendaPage = new ArendaPage(driver, wait);
         decoratedPage = new DecoratedPage(driver);
         orderConfirmationPage = new OrderConfirmationPage(driver);
         userPage = new UserPage(driver);
-
     }
 
     @Test
@@ -143,7 +150,9 @@ public class OrderTest {
         arendaPage.clickOrderButton();
 
         orderConfirmationPage.clickYesButton();
-        decoratedPage.clickViewStatusButton();
+
+        assertTrue("После оформления заказа должна быть надпись 'Заказ оформлен'",
+                decoratedPage.isOrderStatusDisplayed());
     }
 
     @After

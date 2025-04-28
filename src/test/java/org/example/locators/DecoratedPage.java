@@ -4,16 +4,16 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
 public class DecoratedPage {
+    // Локатор для надписи "Заказ оформлен"
+    private final By orderSuccessHeader = By.xpath("//div[contains(text(), 'Заказ оформлен')]");
 
-    // Модальное окно "Заказ оформлен"
-    public By status = By.xpath("//button[contains(text(), 'Посмотреть статус') and contains(@class, 'Button_Middle__1CSJM')]");
     private final WebDriver driver;
 
     public DecoratedPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void clickViewStatusButton() {
-        driver.findElement(status).click();
+    public boolean isOrderStatusDisplayed() {
+        return driver.findElement(orderSuccessHeader).isDisplayed();
     }
 }
