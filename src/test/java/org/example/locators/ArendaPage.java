@@ -7,10 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ArendaPage {
-    //Локатор кнопки, закрытия куки в модальном окне, "да все привыкли"
-    public By cookieButton = By.className("App_CookieButton__3cvqF");
-
-     // Страница "Про аренду"
+    // Страница "Про аренду"
     // Поле "Когда привезти самокат"
     public By date = By.xpath("//input[@placeholder='* Когда привезти самокат']");
         // Календарь
@@ -32,13 +29,13 @@ public class ArendaPage {
         public static final By RENTAL_5_DAYS = By.xpath("//div[contains(text(), 'пятеро суток')]");
         // Срок "шестеро суток"
         public static final By RENTAL_6_DAYS = By.xpath("//div[contains(text(), 'шестеро суток')]");
-    // Поле "Цвет самоката"
-    public By color = By.className("Order_Title__3EKne");
-        // Чекбоксы выбора цвета самоката
+
+    // Чекбоксы выбора цвета самоката
         // Чекбокс "Чёрный жемчуг"
         public By checkBox1 = By.id("black");
         // Чекбокс "Серая безысходность"
         public By checkBox2 = By.id("grey");
+
     // Поле "Комментарий для курьера"
     public By comment = By.xpath("//input[@placeholder='Комментарий для курьера']");
     // Кнопка "Заказать"
