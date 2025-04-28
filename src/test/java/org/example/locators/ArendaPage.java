@@ -1,0 +1,119 @@
+package org.example.locators;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class ArendaPage {
+    // Страница "Про аренду"
+    // Поле "Когда привезти самокат"
+    public By date = By.xpath("//input[@placeholder='* Когда привезти самокат']");
+        // Календарь
+        public By calendar = By.className("react-datepicker");
+        // Текущая дата
+        public By currentDate = By.className("react-datepicker__current-month");
+        // Навигация вперед и назад
+        public By prevMonth = By.xpath("//button[contains(@class, 'react-datepicker__navigation--previous')]");
+    public By nextMonth = By.xpath("//button[contains(@class, 'react-datepicker__navigation--next')]");
+
+    // Поле "Срок аренды"
+    public By rentalPeriod = By.className("Dropdown-placeholder");
+        //Локаторы расписаны для 4х сроков аренды, для остальных создаются аналогично
+        // Срок "трое суток"
+        public static final By RENTAL_3_DAYS = By.xpath("//div[contains(text(), 'трое суток')]");
+        // Срок "четверо суток"
+        public static final By RENTAL_4_DAYS = By.xpath("//div[contains(text(), 'четверо суток')]");
+        // Срок "пятеро суток"
+        public static final By RENTAL_5_DAYS = By.xpath("//div[contains(text(), 'пятеро суток')]");
+        // Срок "шестеро суток"
+        public static final By RENTAL_6_DAYS = By.xpath("//div[contains(text(), 'шестеро суток')]");
+
+    // Чекбоксы выбора цвета самоката
+        // Чекбокс "Чёрный жемчуг"
+        public By checkBox1 = By.id("black");
+        // Чекбокс "Серая безысходность"
+        public By checkBox2 = By.id("grey");
+
+    // Поле "Комментарий для курьера"
+    public By comment = By.xpath("//input[@placeholder='Комментарий для курьера']");
+    // Кнопка "Заказать"
+    public By order =By.xpath("//button[contains(text(), 'Заказать') and contains(@class, 'Button_Middle__1CSJM')]");
+
+    private final WebDriver driver;
+    private final WebDriverWait wait;
+
+    public ArendaPage(WebDriver driver, WebDriverWait wait) {
+        this.driver = driver;
+        this.wait = wait;
+    }
+
+    public void fillRentalData(int year, int month, int day, By rentalPeriodLocator,
+                               boolean useCheckBox1, boolean useCheckBox2, String comment) {
+        selectDate(year, month, day);
+        selectRentalPeriod(rentalPeriodLocator);
+        selectColor(useCheckBox1, useCheckBox2);
+        setComment(comment);
+    }
+
+    private void selectDate(int year, int month, int day) {
+        driver.findElement(date).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(calendar));
+
+        WebElement currentMonthElement = driver.findElement(currentDate);
+        String currentDateText = currentMonthElement.getText();
+        int currentYear = Integer.parseInt(currentDateText.split(" ")[1]);
+        int currentMonth = parseMonth(currentDateText.split(" ")[0]);
+
+        int monthDiff = (year - currentYear) * 12 + (month - currentMonth);
+        By navigationButton = monthDiff > 0 ? nextMonth : prevMonth;
+
+        for (int i = 0; i < Math.abs(monthDiff); i++) {
+            driver.findElement(navigationButton).click();
+            // Ждем обновления календаря через ожидание изменения текущего месяца
+            wait.until(ExpectedConditions.not(ExpectedConditions.textToBe(currentDate, currentDateText)));
+            currentDateText = driver.findElement(currentDate).getText();
+        }
+
+        String dayLocator = String.format(
+                "//div[contains(@class, 'react-datepicker__day') and text()='%d' " +
+                        "and not(contains(@class, 'react-datepicker__day--outside-month'))]", day);
+        driver.findElement(By.xpath(dayLocator)).click();
+    }
+
+    private int parseMonth(String monthName) {
+        String[] months = {"январь", "февраль", "март", "апрель", "май", "июнь",
+                "июль", "август", "сентябрь", "октябрь", "ноябрь", "декабрь"};
+        for (int i = 0; i < months.length; i++) {
+            if (monthName.toLowerCase().contains(months[i])) {
+                return i + 1;
+            }
+        }
+        throw new IllegalArgumentException("Неизвестное название месяца: " + monthName);
+    }
+
+    private void selectRentalPeriod(By rentalPeriodLocator) {
+        driver.findElement(rentalPeriod).click();
+        driver.findElement(rentalPeriodLocator).click();
+    }
+
+    private void selectColor(boolean useCheckBox1, boolean useCheckBox2) {
+        if (useCheckBox1) {
+            WebElement checkbox = driver.findElement(checkBox1);
+            if (!checkbox.isSelected()) checkbox.click();
+        }
+        if (useCheckBox2) {
+            WebElement checkbox = driver.findElement(checkBox2);
+            if (!checkbox.isSelected()) checkbox.click();
+        }
+    }
+
+    private void setComment(String text) {
+        driver.findElement(comment).sendKeys(text);
+    }
+
+    public void clickOrderButton() {
+        driver.findElement(order).click();
+    }
+}
